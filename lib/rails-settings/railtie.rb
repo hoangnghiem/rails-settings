@@ -16,6 +16,10 @@ module RailsSettings
               RailsSettings::ScopedSettings.for_thing(self)
             end
             
+            def settings=(hash)
+              hash.each { |k,v| settings[k] = v }
+            end
+            
             scope :with_settings, :joins => "JOIN settings ON (settings.thing_id = #{self.table_name}.#{self.primary_key} AND
                                                                      settings.thing_type = '#{self.base_class.name}')",
                                         :select => "DISTINCT #{self.table_name}.*" 

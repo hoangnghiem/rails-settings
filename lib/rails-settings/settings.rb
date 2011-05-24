@@ -52,7 +52,7 @@ module RailsSettings
       vars.each do |record|
         result[record.var] = record.value
       end
-      result.with_indifferent_access
+      @@defaults.select{ |k| k =~ /^#{starting_with}/ }.merge(result).with_indifferent_access
     end
     
     #get a setting value by [] notation
